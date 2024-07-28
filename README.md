@@ -34,13 +34,7 @@
     source venv/bin/activate  # บน Windows ใช้ `venv\Scripts\activate`
     ```
 
-3. ติดตั้งแพ็กเกจที่ต้องการ:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. ตรวจสอบให้แน่ใจว่ามีไฟล์ข้อมูล (`data3.json`) ในไดเรกทอรี `data`
+3. ตรวจสอบให้แน่ใจว่ามีไฟล์ข้อมูล (`data3.json`) ในไดเรกทอรี `data`
 
 ## การใช้งาน
 
@@ -56,7 +50,6 @@
 
 - `app.py`: ไฟล์แอปพลิเคชันหลักที่มีโค้ดของ Dash app
 - `data/data3.json`: ไฟล์ JSON ที่มีข้อมูลที่ใช้ในแดชบอร์ด
-- `requirements.txt`: รายการของแพ็กเกจ Python ที่จำเป็นต้องใช้
 
 ## ข้อมูล
 
