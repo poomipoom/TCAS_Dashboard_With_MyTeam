@@ -7,7 +7,7 @@ import pandas as pd
 import dash_bootstrap_components as dbc
 
 # อ่านข้อมูลจากไฟล์ JSON
-df = pd.read_json('C:/Users/kungs/groupdash/TCAS_Dashboard_With_MyTeam/data/data3.json')
+df = pd.read_json('data/data3.json')
 
 # สร้างรายการสาขาวิชาและรอบ TCAS
 faculties = df['field'].unique()
