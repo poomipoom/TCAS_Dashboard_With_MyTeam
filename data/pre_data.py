@@ -8,6 +8,7 @@ with open('data/tcas_data2.json', 'r', encoding='utf-8') as file:
 df = pd.json_normalize(data)
 
 # ข้อมูลลิสต์ของมหาวิทยาลัยและพิกัดละติจูด/ลองจิจูด
+
 university_locations = {
     'จุฬาลงกรณ์มหาวิทยาลัย': {'latitude': 13.7463, 'longitude': 100.5320},
     'มหาวิทยาลัยเกษตรศาสตร์': {'latitude': 13.8500, 'longitude': 100.5584},
@@ -57,94 +58,75 @@ university_locations = {
 
 }
 
-# ข้อมูลที่ต้องการเพิ่ม
-data_to_add = [
-    {"university": "จุฬาลงกรณ์มหาวิทยาลัย", "campus": "วิทยาเขตหลัก"},
-    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "วิทยาเขตหลัก"},
-    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "บางเขน"},
-    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "กำแพงแสน"},
-    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "ศรีราชา"},
-    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "เฉลิมพระเกียรติ จ.สกลนคร"},
-    {"university": "มหาวิทยาลัยขอนแก่น", "campus": "ขอนแก่น"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี", "campus": "บางมด"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ", "campus": "กรุงเทพฯ"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ", "campus": "ปราจีนบุรี"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ", "campus": "ระยอง"},
-    {"university": "มหาวิทยาลัยทักษิณ", "campus": "พัทลุง"},
-    {"university": "มหาวิทยาลัยธรรมศาสตร์", "campus": "ศูนย์รังสิต"},
-    {"university": "มหาวิทยาลัยธรรมศาสตร์", "campus": "ศูนย์พัทยา"},
-    {"university": "มหาวิทยาลัยบูรพา", "campus": "หลัก"},
-    {"university": "มหาวิทยาลัยมหิดล", "campus": "ศาลายา"},
-    {"university": "มหาวิทยาลัยมหาสารคาม", "campus": "มหาสารคาม"},
-    {"university": "มหาวิทยาลัยแม่โจ้", "campus": "วิทยาเขตเชียงใหม่"},
-    {"university": "มหาวิทยาลัยรามคำแหง", "campus": "วิทยาเขตหลักหัวหมาก"},
-    {"university": "มหาวิทยาลัยศรีนครินทรวิโรฒ", "campus": "องครักษ์"},
-    {"university": "มหาวิทยาลัยศิลปากร", "campus": "สนามจันทร์"},
-    {"university": "มหาวิทยาลัยสงขลานครินทร์", "campus": "หาดใหญ่"},
-    {"university": "สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง", "campus": "ลาดกระบัง"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก", "campus": "คณะ/สถาบันในส่วนกลาง"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก", "campus": "วิทยาเขตจันทบุรี"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก", "campus": "วิทยาเขตอุเทนถวาย"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลรัตนโกสินทร์", "campus": "วังไกลกังวล"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย", "campus": "สงขลา"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย", "campus": "ตรัง"},
-    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน", "campus": "นครราชสีมา"},
-    {"university": "มหาวิทยาลัยเกษมบัณฑิต", "campus": "วิทยาเขตพัฒนาการ"},
-    {"university": "มหาวิทยาลัยเกษมบัณฑิต", "campus": "วิทยาเขตร่มเกล้า"},
-    {"university": "สถาบันการจัดการปัญญาภิวัฒน์", "campus": "แจ้งวัฒนะ นนทบุรี"},
-    {"university": "สถาบันการจัดการปัญญาภิวัฒน์", "campus": "อีอีซี"}
+campus_locations=[
+    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "บางเขน", "latitude": 13.847860, "longitude": 100.571247},
+    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "กำแพงแสน", "latitude": 14.022632, "longitude": 99.973322},
+    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "ศรีราชา", "latitude": 13.169799, "longitude": 100.926673},
+    {"university": "มหาวิทยาลัยเกษตรศาสตร์", "campus": "เฉลิมพระเกียรติ จ.สกลนคร", "latitude": 17.227358, "longitude": 104.120297},
+    {"university": "มหาวิทยาลัยขอนแก่น", "campus": "ขอนแก่น", "latitude": 16.472894, "longitude": 102.823721},
+    {"university": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี", "campus": "บางมด", "latitude": 13.651245, "longitude": 100.494220},
+    {"university": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ", "campus": "กรุงเทพฯ", "latitude": 13.820587, "longitude": 100.513390},
+    {"university": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ", "campus": "ปราจีนบุรี", "latitude": 14.044907, "longitude": 101.373805},
+    {"university": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ", "campus": "ระยอง", "latitude": 12.708049, "longitude": 101.159537},
+    {"university": "มหาวิทยาลัยทักษิณ", "campus": "พัทลุง", "latitude": 7.616124, "longitude": 100.083171},
+    {"university": "มหาวิทยาลัยธรรมศาสตร์", "campus": "ศูนย์รังสิต", "latitude": 14.066973, "longitude": 100.607818},
+    {"university": "มหาวิทยาลัยธรรมศาสตร์", "campus": "ศูนย์พัทยา", "latitude": 12.959155, "longitude": 100.901372},
+    {"university": "มหาวิทยาลัยบูรพา", "campus": "หลัก", "latitude": 13.284362, "longitude": 100.926741},
+    {"university": "มหาวิทยาลัยมหิดล", "campus": "ศาลายา", "latitude": 13.793455, "longitude": 100.325550},
+    {"university": "มหาวิทยาลัยมหาสารคาม", "campus": "มหาสารคาม", "latitude": 16.245403, "longitude": 103.252396},
+    {"university": "มหาวิทยาลัยแม่โจ้", "campus": "วิทยาเขตเชียงใหม่", "latitude": 18.897318, "longitude": 99.016948},
+    {"university": "มหาวิทยาลัยรามคำแหง", "campus": "วิทยาเขตหลักหัวหมาก", "latitude": 13.759892, "longitude": 100.625821},
+    {"university": "มหาวิทยาลัยศรีนครินทรวิโรฒ", "campus": "องครักษ์", "latitude": 14.076735, "longitude": 101.378024},
+    {"university": "มหาวิทยาลัยศิลปากร", "campus": "สนามจันทร์", "latitude": 13.817545, "longitude": 100.041840},
+    {"university": "มหาวิทยาลัยสงขลานครินทร์", "campus": "หาดใหญ่", "latitude": 7.006761, "longitude": 100.498247},
+    {"university": "สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง", "campus": "ลาดกระบัง", "latitude": 13.729039, "longitude": 100.779978},
+    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก", "campus": "คณะ/สถาบันในส่วนกลาง", "latitude": 13.153211, "longitude": 101.136255},
+    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก", "campus": "วิทยาเขตจันทบุรี", "latitude": 12.618932, "longitude": 102.104781},
+    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก", "campus": "วิทยาเขตอุเทนถวาย", "latitude": 13.745058, "longitude": 100.529870},
+    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลรัตนโกสินทร์", "campus": "วังไกลกังวล", "latitude": 12.558940, "longitude": 99.962772},
+    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย", "campus": "สงขลา", "latitude": 7.171045, "longitude": 100.611430},
+    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย", "campus": "ตรัง", "latitude": 7.484013, "longitude": 99.624722},
+    {"university": "มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน", "campus": "นครราชสีมา", "latitude": 14.980378, "longitude": 102.100576},
+    {"university": "มหาวิทยาลัยเกษมบัณฑิต", "campus": "วิทยาเขตพัฒนาการ", "latitude": 13.732402, "longitude": 100.647618},
+    {"university": "มหาวิทยาลัยเกษมบัณฑิต", "campus": "วิทยาเขตร่มเกล้า", "latitude": 13.773926, "longitude": 100.747507},
+    {"university": "สถาบันการจัดการปัญญาภิวัฒน์", "campus": "แจ้งวัฒนะ นนทบุรี", "latitude": 13.896657, "longitude": 100.528891},
+    {"university": "สถาบันการจัดการปัญญาภิวัฒน์", "campus": "อีอีซี", "latitude": 12.955797, "longitude": 100.891847}
 ]
 
-# ข้อมูลพิกัดของแต่ละวิทยาเขต
-campus_locations = {
-    'วิทยาเขตหลัก': {'latitude': 13.7463, 'longitude': 100.5320},
-    'บางเขน': {'latitude': 13.8500, 'longitude': 100.5584},
-    'กำแพงแสน': {'latitude': 14.0401, 'longitude': 99.9546},
-    'ศรีราชา': {'latitude': 13.1914, 'longitude': 101.2952},
-    'เฉลิมพระเกียรติ จ.สกลนคร': {'latitude': 17.1622, 'longitude': 104.1722},
-    'ขอนแก่น': {'latitude': 16.4333, 'longitude': 102.8333},
-    'บางมด': {'latitude': 13.7108, 'longitude': 100.5132},
-    'กรุงเทพฯ': {'latitude': 13.8592, 'longitude': 100.5120},
-    'ปราจีนบุรี': {'latitude': 13.9406, 'longitude': 101.3482},
-    'ระยอง': {'latitude': 12.6792, 'longitude': 101.2707},
-    'พัทลุง': {'latitude': 7.0655, 'longitude': 100.5087},
-    'ศูนย์รังสิต': {'latitude': 13.7652, 'longitude': 100.5558},
-    'ศูนย์พัทยา': {'latitude': 12.9278, 'longitude': 100.8970},
-    'หลัก': {'latitude': 12.9186, 'longitude': 100.9167},
-    'ศาลายา': {'latitude': 13.7510, 'longitude': 100.5167},
-    'มหาสารคาม': {'latitude': 15.1833, 'longitude': 103.2833},
-    'วิทยาเขตเชียงใหม่': {'latitude': 18.7874, 'longitude': 98.9934},
-    'วิทยาเขตหลักหัวหมาก': {'latitude': 13.7846, 'longitude': 100.6242},
-    'องครักษ์': {'latitude': 13.7678, 'longitude': 100.6201},
-    'สนามจันทร์': {'latitude': 13.7404, 'longitude': 100.2908},
-    'หาดใหญ่': {'latitude': 7.0070, 'longitude': 100.4640},
-    'ลาดกระบัง': {'latitude': 13.7303, 'longitude': 100.7696},
-    'คณะ/สถาบันในส่วนกลาง': {'latitude': 13.7540, 'longitude': 100.5014},
-    'วิทยาเขตจันทบุรี': {'latitude': 12.6031, 'longitude': 102.1091},
-    'วิทยาเขตอุเทนถวาย': {'latitude': 13.8461, 'longitude': 100.5361},
-    'วังไกลกังวล': {'latitude': 13.8000, 'longitude': 100.5710},
-    'สงขลา': {'latitude': 7.0070, 'longitude': 100.4640},
-    'ตรัง': {'latitude': 7.5536, 'longitude': 99.6117},
-    'นครราชสีมา': {'latitude': 15.0833, 'longitude': 104.8333},
-    'วิทยาเขตพัฒนาการ': {'latitude': 13.8104, 'longitude': 100.5406},
-    'วิทยาเขตร่มเกล้า': {'latitude': 13.8104, 'longitude': 100.5406},
-    'แจ้งวัฒนะ นนทบุรี': {'latitude': 13.8720, 'longitude': 100.5087},
-    'อีอีซี': {'latitude': 13.8720, 'longitude': 100.5087}
-}
 
-df_1 = pd.DataFrame(data_to_add)
-# เพิ่มพิกัด lat long ลงใน DataFrame
-df['latitude'] = df['campus'].map(lambda x: campus_locations.get(x, {}).get('latitude', None))
-df['longitude'] = df['campus'].map(lambda x: campus_locations.get(x, {}).get('longitude', None))
+# เพิ่มคอลัมน์ latitude และ longitude
+def get_latitude(university, campus):
+    # ค้นหาวิทยาเขตที่ตรงกัน
+    for location in campus_locations:
+        if location['university'] == university and location['campus'] == campus:
+            return location['latitude']
+    # ถ้าไม่พบวิทยาเขตที่ตรงกัน ให้คืนค่าละติจูดของมหาวิทยาลัย
+    return university_locations.get(university, {}).get('latitude')
 
-print(df)
+def get_longitude(university, campus):
+    # ค้นหาวิทยาเขตที่ตรงกัน
+    for location in campus_locations:
+        if location['university'] == university and location['campus'] == campus:
+            return location['longitude']
+    # ถ้าไม่พบวิทยาเขตที่ตรงกัน ให้คืนค่าลองจิจูดของมหาวิทยาลัย
+    return university_locations.get(university, {}).get('longitude')
 
-
+df['latitude'] = df.apply(lambda row: get_latitude(row['university'], row['campus']), axis=1)
+df['longitude'] = df.apply(lambda row: get_longitude(row['university'], row['campus']), axis=1)
 # # เพิ่มคอลัมน์ latitude และ longitude
 # df['latitude'] = df['university'].map(lambda x: university_locations.get(x, {}).get('latitude'))
 # df['longitude'] = df['university'].map(lambda x: university_locations.get(x, {}).get('longitude'))
+# df_1 = pd.DataFrame(data_to_add)
+# # เพิ่มพิกัด lat long ลงใน DataFrame
+# df['latitude'] = df['campus'].map(lambda x: campus_locations.get(x, {}).get('latitude', None))
+# df['longitude'] = df['campus'].map(lambda x: campus_locations.get(x, {}).get('longitude', None))
 
-df
+# print(df)
+
+
+
+
+# df
 
 # เปลี่ยนชื่อคอลัมน์
 df.rename(columns={
@@ -174,8 +156,7 @@ for col in columns_to_clean:
 # คำนวณผลรวมของการรับสมัครจากทุกคอลัมน์
 df['intake_per_course'] = df[columns_to_clean].sum(axis=1)
 
-# ตรวจสอบ DataFrame หลังจากการอัปเดต
-# print(df[['intake_per_course'] + columns_to_clean])
+
 
 
 # การทำความสะอาดคอลัมน์ 'field'
@@ -183,9 +164,6 @@ df['field'] = df['field'].str.replace('.', '')  # ลบจุด
 for i in range(0, 11):  # ลบตัวเลขจาก 1 ถึง 10
     df['field'] = df['field'].str.replace(str(i), '')
 
-# ลบข้อความหลังเครื่องหมาย '(' ในคอลัมน์ 'program'
-# df['program'] = df['program'].apply(lambda x: x.split('(')[0].strip())
-# การทำความสะอาดคอลัมน์ 'field'
 df['program'] = df['program'].str.replace('.', '')  # ลบจุด
 df['program'] = df['program'].str.replace('วศบ', 'วิศวกรรมศาสตรบัณฑิต')
 df['program'] = df['program'].str.replace('วทบ', 'วิทยาศาสตรบัณฑิต')
@@ -203,17 +181,7 @@ def extract_amount(text):
     return None
 
 def extract_tuition_fee(df):
-    # df['tuition_fee_amount'] = df['tuition_fee'].apply(extract_amount)
     df['tuition_fee_amount'] = df['tuition_fee'].apply(extract_amount)
-    # df['term_or_course'] = df['tuition_fee'].apply(
-    #     lambda x: 'per_term' if 'ภาค' in x else ('per_course' if 'ตลอดหลักสูตร' in x else 'unknown')
-    # )
-    # df['term_or_course'] = df['tuition_fee'].apply(
-    #     lambda x: 'per_term' if 'ภาค' in x else ('per_term' if 'เหมา' in x else 'unknown')
-    # )
-    # df['term_or_course'] = df['tuition_fee'].apply(
-    #     lambda x: 'per_term' if 'เทอม' in x else ('per_term' if 'เหมา' in x else 'unknown')
-    # )
     df['term_or_course'] = df['tuition_fee'].apply(
         lambda x: 'per_term' if 'ภาค' in x else ('per_course' if 'ตลอดหลักสูตร' in x else ('per_term' if 'เทอม' in x else 'unknown'))
     )
@@ -248,7 +216,6 @@ print(df['tuition_fee'])
 df = extract_tuition_fee(df)
 df['tuition_fee_amount'] = df['tuition_fee_amount'].astype(str)
 df['tuition_fee_amount'] = df['tuition_fee_amount'].fillna('N/A')
-# df['tuition_fee_amount'] = df['tuition_fee_amount'].astype(int)
 
 # กรอง DataFrame ให้เก็บเฉพาะแถวที่มีคำว่า "วิศวกรรม" อยู่ในคอลัมน์ 'field'
 df = df[df['field'].str.contains('วิศวกรรม')]
@@ -258,7 +225,7 @@ df['program'] = df['program'].str.replace('(หลักสูตรนานา
 df['program'] = df['program'].str.replace('หลักสูตร', '')
 df['program'] = df['program'].str.replace('วิศวกรรมศาสตรบัณฑิต', 'หลักสูตรวิศวกรรมศาสตรบัณฑิต ')
 df['program'] = df['program'].str.replace('(หลักสูตรวิศวกรรมศาสตรบัณฑิต )', '')
-# df['program'] = df['program'].str.replace('(วิศวกรรมโลจิสติกส์ )', '')
+
 
 
 
@@ -266,21 +233,11 @@ df['program'] = df['program'].str.replace('(หลักสูตรวิศว
 
 df = df.drop(columns=['faculty'])
 
-# print(df['field'].unique())
-# print(df['program'].unique())
-# ใช้ drop_duplicates() เพื่อลบค่า campus ที่ซ้ำ
-unique_campus_df = df.drop_duplicates(subset=['campus'])
+# box = df['campus'].replace('วิทยาเขตหลัก','').unique()
 
-unique_campus_df = unique_campus_df[['university','campus']]
-print(unique_campus_df)
+# print(box)
 
-
-# campus_dict = unique_campus_df.to_dict(orient='records')
-# # บันทึก Dictionary เป็นไฟล์ JSON
-# with open('data/campus.json', 'w', encoding='utf-8') as f:
-#     json.dump(campus_dict, f, ensure_ascii=False, indent=4)
-
-
+df['tuition_fee'] = df['tuition_fee'].str.replace('N/A', 'ไม่ได้ระบุ')
 
 # แปลง DataFrame เป็น Dictionary
 data_dict = df.to_dict(orient='records')
