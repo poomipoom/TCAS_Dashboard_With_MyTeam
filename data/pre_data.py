@@ -113,15 +113,7 @@ def get_longitude(university, campus):
 
 df['latitude'] = df.apply(lambda row: get_latitude(row['university'], row['campus']), axis=1)
 df['longitude'] = df.apply(lambda row: get_longitude(row['university'], row['campus']), axis=1)
-# # เพิ่มคอลัมน์ latitude และ longitude
-# df['latitude'] = df['university'].map(lambda x: university_locations.get(x, {}).get('latitude'))
-# df['longitude'] = df['university'].map(lambda x: university_locations.get(x, {}).get('longitude'))
-# df_1 = pd.DataFrame(data_to_add)
-# # เพิ่มพิกัด lat long ลงใน DataFrame
-# df['latitude'] = df['campus'].map(lambda x: campus_locations.get(x, {}).get('latitude', None))
-# df['longitude'] = df['campus'].map(lambda x: campus_locations.get(x, {}).get('longitude', None))
 
-# print(df)
 
 
 
@@ -173,6 +165,7 @@ for i in range(0, 11):  # ลบตัวเลขจาก 1 ถึง 10
 
 
 df['tuition_fee'] = df['tuition_fee'].apply(lambda x: x.split('หรือ')[0].strip())
+
 
 def extract_amount(text):
     match = re.search(r'(\d{1,3}(?:,\d{3})*)', text)
@@ -236,8 +229,28 @@ df = df.drop(columns=['faculty'])
 # box = df['campus'].replace('วิทยาเขตหลัก','').unique()
 
 # print(box)
+df['tuition_fee'] = df['tuition_fee'].apply(lambda x: x.split('ดูราย')[0].strip())
+df['tuition_fee'] = df['tuition_fee'].replace('', 'N/A')
 
 df['tuition_fee'] = df['tuition_fee'].str.replace('N/A', 'ไม่ได้ระบุ')
+# df['tuition_fee'] = df['tuition_fee'].fillna('N/A')
+
+# df.loc[df['field'].str.strip() == 'วิศวกรรมทั่วไป', 'program'] = 'หลักสูตรวิศวกรรมศาสตรบัณฑิต วิศวกรรมศาสตร์ (ภาษาไทย ปกติ)'
+print(df.loc[df['field'].str.strip() == 'วิศวกรรมทั่วไป', 'program'].unique())
+# แก้ไขค่าในคอลัมน์ 'program' ตามเงื่อนไขที่กำหนด
+df.loc[
+    (df['field'].str.strip() == 'วิศวกรรมทั่วไป') & 
+    (df['program'].str.contains('(ภาษาไทย ปกติ)')),
+    'program'
+] = 'หลักสูตรวิศวกรรมศาสตรบัณฑิต วิศวกรรมศาสตร์ (ภาษาไทย ปกติ)'
+
+
+
+print(df['program'].nunique())
+# print(normalized_programs,df['program'].unique())
+df['program'] = df['program'].str.replace('สาขาวิชา', '')
+df['program'] = df['program'].str.replace('หลักสูตรวิศวกรรมศาสตรบัณฑิต  ', 'หลักสูตรวิศวกรรมศาสตรบัณฑิต ')
+
 
 # แปลง DataFrame เป็น Dictionary
 data_dict = df.to_dict(orient='records')
