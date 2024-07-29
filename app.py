@@ -109,7 +109,7 @@ def update_university_info(selected_program, selected_university):
     try:
         # Base map with all universities
         map_fig = px.scatter_mapbox(df, lat="latitude", lon="longitude", hover_name="university", hover_data=["program", "intake_per_course", "tuition_fee_amount"], color="university", size_max=15)
-        map_fig.update_layout(mapbox_style="open-street-map", mapbox_zoom=5, mapbox_center={"lat": 13.736717, "lon": 100.523186}, margin={"r":0,"t":0,"l":0,"b":0})
+        map_fig.update_layout(mapbox_style="carto-positron", mapbox_zoom=5, mapbox_center={"lat": 13.736717, "lon": 100.523186}, margin={"r":0,"t":0,"l":0,"b":0})
 
         # Filtered data for university intake
         university_intake_text = html.P("กรุณาเลือกหลักสูตร", style={"textAlign": "center"})
@@ -134,7 +134,7 @@ def update_university_info(selected_program, selected_university):
                 university_info = filtered_university_df.iloc[0]
                 lat, lon = university_info['latitude'], university_info['longitude']
                 map_fig = px.scatter_mapbox(df[df['university'] == selected_university], lat="latitude", lon="longitude", hover_name="university", hover_data=["program"], color="university", size_max=15)
-                map_fig.update_layout(mapbox_style="open-street-map", mapbox_center={'lat': lat, 'lon': lon}, mapbox_zoom=15)
+                map_fig.update_layout(mapbox_style="carto-positron", mapbox_center={'lat': lat, 'lon': lon}, mapbox_zoom=15)
                 tuition_fee_text = f"{university_info['tuition_fee']}"
             else:
                 map_fig.update_layout(mapbox_center={"lat": 13.736717, "lon": 100.523186}, mapbox_zoom=5)
@@ -144,7 +144,7 @@ def update_university_info(selected_program, selected_university):
     except Exception as e:
         logger.error(f"Error in update_university_info: {e}")
         map_fig = px.scatter_mapbox(df, lat="latitude", lon="longitude", hover_name="university", hover_data=["program"], color="university")
-        map_fig.update_layout(mapbox_style="open-street-map", mapbox_zoom=5, mapbox_center={"lat": 13.736717, "lon": 100.523186})
+        map_fig.update_layout(mapbox_style="carto-positron", mapbox_zoom=5, mapbox_center={"lat": 13.736717, "lon": 100.523186})
         university_intake_text = html.P("เกิดข้อผิดพลาดในการโหลดข้อมูล", style={"textAlign": "center"})
         university_options = []
         tuition_fee_text = "ข้อมูลไม่พบ"
